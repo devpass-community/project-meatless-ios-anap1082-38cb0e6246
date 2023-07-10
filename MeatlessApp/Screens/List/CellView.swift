@@ -59,9 +59,9 @@ class CellView: UITableViewCell {
 extension CellView {
  
     func updateView(restaurant: Restaurant) {
-        
-        // STORY 2: Configure CellView with the Restaurant data.
-         
+        logoImageView.image = UIImage(named: restaurant.image)
+        restaurantNameLabel.text = restaurant.name
+        restaurantInfoLabel.text = restaurant.distance
     }
 }
 
