@@ -96,9 +96,9 @@ class MenuCellView: UITableViewCell {
 extension MenuCellView {
     
     func updateView(menuItem: MenuItem) {
-        
-        // STORY 3: Configure MenuCellView with the MenuItem data.
-
+        itemNameLabel.text = menuItem.name
+        itemPriceLabel.text = String(menuItem.price)
+        itemImageView.image = UIImage(named: menuItem.image)
     }
 }
 
