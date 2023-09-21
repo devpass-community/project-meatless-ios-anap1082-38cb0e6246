@@ -1,7 +1,5 @@
 import UIKit
 
-// STORY 5: Implement minusButton and plusButton actions. Whenever they're pressed, quantityLabel must be updated accordingly.
-
 class MenuCellView: UITableViewCell {
     
    private var mainStackView: UIStackView = {
@@ -108,15 +106,17 @@ private extension MenuCellView {
         
         configureSubviews()
         configureSubviewsConstraints()
+        minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
     }
-
+    
     func configureSubviews() {
-
+        
         contentView.addSubview(mainStackView)
         mainStackView.addArrangedSubview(itemImageView)
         mainStackView.addArrangedSubview(labelsStackView)
         mainStackView.addArrangedSubview(buttonsStackView)
-
+        
         labelsStackView.addArrangedSubview(itemNameLabel)
         labelsStackView.addArrangedSubview(itemPriceLabel)
         
@@ -124,21 +124,35 @@ private extension MenuCellView {
         buttonsStackView.addArrangedSubview(quantityLabel)
         buttonsStackView.addArrangedSubview(plusButton)
     }
-
+    
     func configureSubviewsConstraints() {
-
+        
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor,  constant: -16),
-
+            
             itemImageView.widthAnchor.constraint(equalToConstant: 64),
             itemImageView.heightAnchor.constraint(equalToConstant: 64),
-
+            
             labelsStackView.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 16),
             labelsStackView.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 16),
             labelsStackView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -16)
         ])
+    }
+    
+    @objc func minusButtonTapped() {
+        if let currentQuantity = Int(quantityLabel.text ?? "0"), currentQuantity > 0 {
+            let newQuantity = currentQuantity - 1
+            quantityLabel.text = "\(newQuantity)"
+        }
+    }
+    
+    @objc func plusButtonTapped() {
+        if let currentQuantity = Int(quantityLabel.text ?? "0"), currentQuantity < 99 {
+            let newQuantity = currentQuantity + 1
+            quantityLabel.text = "\(newQuantity)"
+        }
     }
 }
